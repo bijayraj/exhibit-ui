@@ -1,0 +1,7 @@
+{
+  "name": "art-exhibit",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
