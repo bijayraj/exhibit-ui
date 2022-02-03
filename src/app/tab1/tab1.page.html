@@ -9,24 +9,19 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-button type="button" expand="block" color="tertiary" (click)="navigateArtwork(1)">
-    <ion-icon name="logo-apple" slot="start"></ion-icon>
-    First One
-  </ion-button>
 
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <app-explore-container name="Tab 1 page"></app-explore-container> -->
 
-  <div class="ion-padding">
-    <ion-button routerLink='/photoviewer/one' routerDirection="forward" color='primary' expand="block">Mode One
+  <div *ngIf="!isIos" class="flex-center">
+    <ion-button type="button" expand="block" color="tertiary" (click)="navigateArtwork(1)">
+      <ion-icon name="logo-android" slot="start"></ion-icon>
+      First One
     </ion-button>
-    <ion-button routerLink='/photoviewer/gallery' routerDirection="forward" color='primary' expand="block">Mode Gallery
-    </ion-button>
-    <ion-button routerLink='/photoviewer/slider' routerDirection="forward" color='primary' expand="block">Mode Slider
+  </div>
+
+  <div *ngIf="isIos" class="flex-center">
+    <ion-button type="button" expand="block" color="tertiary" (click)="navigateArtwork(1)">
+      <ion-icon name="logo-apple" slot="start"></ion-icon>
+      First One
     </ion-button>
   </div>
 

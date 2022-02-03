@@ -1,0 +1,20 @@
+.slide-contents{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.ionic-selectable{
+    max-width: 100% !important;
+}
+
+.errors {
+    font-size: small;
+    color: var(--ion-color-danger);;
+    // background: var(--ion-color-danger);
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

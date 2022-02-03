@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,6 +16,11 @@ export class ArtworkService {
 
   get(id: number) {
     return this.http.get<any>(`${environment.apiUrl}/artwork/${id}`);
+  }
+
+  create(userData) {
+    return this.http.post<any>(`${environment.apiUrl}/artwork`, userData)
+      .pipe(map(exhibit => exhibit));
   }
 
 }

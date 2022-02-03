@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -24,16 +24,17 @@
     </div>
 
     <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
-    <ion-button type="button" expand="block" color="light" fill="clear">Not yet a member? Sign up!
+
+    <ion-button type="button" expand="block" color="light" fill="clear" (click)="register()">Not yet a member? Sign up!
     </ion-button>
 
-    <ion-button type="button" expand="block" color="tertiary">
+    <!-- <ion-button type="button" expand="block" color="tertiary">
       <ion-icon name="logo-google" slot="start"></ion-icon>
       Sign in with Google
     </ion-button>
     <ion-button type="button" expand="block" color="tertiary">
       <ion-icon name="logo-apple" slot="start"></ion-icon>
       Sign in with Apple
-    </ion-button>
+    </ion-button> -->
   </form>
 </ion-content>

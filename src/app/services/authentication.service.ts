@@ -84,12 +84,14 @@ export class AuthenticationService {
 
 
 
-  logout() {
-    this.http.post<any>(`${environment.apiUrl}/revoke-token`, {}, { withCredentials: false }).subscribe();
+  async logout() {
+    const refreshToken = await Storage.get({ key: 'token2' });//localStorage.getItem('token2');
+    this.http.post<any>(`${environment.apiUrl}/revoke-token?refreshToken=${refreshToken.value}`,
+      {}, { withCredentials: false }).subscribe();
     this.stopRefreshTokenTimer();
     this.userSubject.next(null);
     this.clearSession();
-    this.router.navigate(['/login']);
+    // this.router.navigate(['/login']);
   }
 
   async refreshToken() {

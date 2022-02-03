@@ -1,0 +1,6 @@
+{
+	"appId": "edu.siu.exhibit",
+	"appName": "art-exhibit",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

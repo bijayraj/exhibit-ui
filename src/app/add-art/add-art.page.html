@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Art</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+
+  <swiper #mainSwiper [config]="swiperConfig">
+
+    <!-- Slide 1 -->
+    <ng-template swiperSlide>
+
+      <div class="slide-contents">
+        <ion-text>
+          <h3>Select Exhibit/Theme</h3>
+        </ion-text>
+        <ion-item>
+          <ion-label>Exhibit</ion-label>
+          <ionic-selectable [(ngModel)]="exhibit" [items]="exhibits" itemValueField="id" itemTextField="name"
+            [canSearch]="true" (onChange)="portChange($event)">
+          </ionic-selectable>
+        </ion-item>
+
+        <ion-card *ngIf="exhibit">
+          <ion-card-header>
+            <ion-card-title>{{exhibit.name}}</ion-card-title>
+            <ion-card-subtitle>{{exhibit.address}}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Start Date: {{exhibit.startDate | date}}</p>
+            <p>{{exhibit.description}}</p>
+          </ion-card-content>
+        </ion-card>
+
+
+        <ion-button expand="block" fill="outline" (click)="nextSlide()" [disabled]="!exhibit">Next</ion-button>
+
+      </div>
+
+
+
+    </ng-template>
+
+    <!-- slide 2 -->
+    <ng-template swiperSlide>
+      <div class="slide-contents">
+        <form (ngSubmit)="createArt()" [formGroup]="artForm">
+          <div class="input-group">
+            <ion-item>
+              <ion-label position="floating">Exhibit</ion-label>
+              <ion-input readonly disabled value="{{exhibit?.name}}"></ion-input>
+
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Title</ion-label>
+              <ion-input formControlName="title"></ion-input>
+            </ion-item>
+
+            <div *ngIf="(f.title.dirty || f.title.touched) && f.title.errors" class="errors">
+              <span *ngIf="f.title.errors?.required">Title is required</span>
+            </div>
+
+
+            <ion-item>
+              <ion-label position="floating">Description</ion-label>
+              <ion-textarea formControlName="description" maxlength=250></ion-textarea>
+            </ion-item>
+            <div *ngIf="(f.description.dirty || f.description.touched) && f.description.errors" class="errors">
+              <span *ngIf="f.description.errors?.required">Short description is required</span>
+            </div>
+
+
+            <ion-item>
+              <ion-label position="floating">More Info URL</ion-label>
+              <ion-input formControlName="moreInfo"></ion-input>
+            </ion-item>
+          </div>
+
+          <ion-button type="submit" expand="block" [disabled]="!artForm.valid">Create</ion-button>
+
+        </form>
+        <ion-button type="submit" fill="outline" expand="block" (click)="prevSlide()">Back</ion-button>
+        <ion-button expand="block" fill="outline" (click)="nextSlide()">Next</ion-button>
+
+
+
+      </div>
+    </ng-template>
+
+
+    <!-- Slide 3 -->
+    <ng-template swiperSlide>
+
+      <div class="slide-contents">
+        <ion-img height="400" width="400" #imageElement [src]="imageSource"></ion-img>
+        <ion-button expand="block" fill="outline" (click)="takePicture()">Click Picture</ion-button>
+        <ion-button expand="block" fill="outline" (click)="nextSlide()">Next</ion-button>
+
+      </div>
+
+
+
+    </ng-template>
+
+
+  </swiper>
+</ion-content>

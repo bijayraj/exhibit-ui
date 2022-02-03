@@ -31,6 +31,18 @@ const routes: Routes = [
   {
     path: 'photoviewer',
     loadChildren: () => import('./viewer/viewer.module').then(m => m.ViewerPageModule)
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
+  },
+  {
+    path: 'add-art',
+    loadChildren: () => import('./add-art/add-art.module').then( m => m.AddArtPageModule)
+  },
+  {
+    path: 'artist-art',
+    loadChildren: () => import('./artist-art/artist-art.module').then( m => m.ArtistArtPageModule)
   }
 ];
 @NgModule({

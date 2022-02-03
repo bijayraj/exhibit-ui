@@ -20,8 +20,8 @@ export class LoginPage implements OnInit {
     private router: Router,
     private loadingController: LoadingController
   ) {
-    console.log('The APP URL IS');
-    console.log(environment.apiUrl);
+    // console.log('The APP URL IS');
+    // console.log(environment.apiUrl);
   }
 
   get f() { return this.credentials.controls; }
@@ -35,8 +35,6 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(environment.apiUrl);
-
     this.credentials = this.fb.group({
       username: ['admin@siu.edu', [Validators.required, Validators.email]],
       password: ['admin123', [Validators.required, Validators.minLength(6)]],
@@ -66,6 +64,10 @@ export class LoginPage implements OnInit {
         await alert.present();
       }
     );
+  }
+
+  register() {
+    this.router.navigateByUrl('/signup', { replaceUrl: true });
   }
 
 
