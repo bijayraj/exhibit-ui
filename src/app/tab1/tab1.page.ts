@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +9,11 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  constructor(private router: Router, private navController: NavController) { }
+
+  navigateArtwork(id: number) {
+    // this.router.navigate(['tabs', 'artwork', 1]);
+    this.navController.navigateForward('tabs/artwork/1');
+  }
 
 }

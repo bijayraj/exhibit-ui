@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Artwork</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{artwork?.title}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{artwork?.description}}
+
+      <p><a target="_blank" rel="noopener noreferrer" [href]="artwork?.moreInfo | safeHtml">More Info..</a>
+      </p>
+
+    </ion-card-content>
+  </ion-card>
+
+  <app-wavplayer></app-wavplayer>
+
+  <div *ngIf="imageList" style="min-height: 300px;">
+    <img height="100" width="150" [src]="imageList[0].url | safeHtml"
+      (click)="showPhoto(imageList[0].url, 'some_title')" />
+  </div>
+
+</ion-content>

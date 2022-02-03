@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">art-exhibit</string>
+    <string name="title_activity_main">art-exhibit</string>
+    <string name="package_name">edu.siu.exhibit</string>
+    <string name="custom_url_scheme">edu.siu.exhibit</string>
+</resources>

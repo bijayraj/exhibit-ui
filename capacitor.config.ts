@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'edu.siu.exhibit',
   appName: 'art-exhibit',
   webDir: 'www',
   bundledWebRuntime: false

@@ -1,0 +1,13 @@
+#photo-container {
+    position: relative;
+    height:100px;
+    width: 100%;
+    background-color: #000;
+    z-index: 999;
+  }
+
+ion-card{
+    max-height:100%;
+    display:flex;
+    flex-direction:column;
+}
