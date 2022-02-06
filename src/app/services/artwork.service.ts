@@ -23,4 +23,9 @@ export class ArtworkService {
       .pipe(map(exhibit => exhibit));
   }
 
+  getAll() {
+    return this.http.get<any>(`${environment.apiUrl}/artwork`);
+  }
+
+
 }

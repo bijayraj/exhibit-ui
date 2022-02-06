@@ -13,15 +13,15 @@
 
   <div *ngIf="!isIos" class="flex-center">
     <ion-button type="button" expand="block" color="tertiary" (click)="navigateArtwork(1)">
-      <ion-icon name="logo-android" slot="start"></ion-icon>
-      First One
+      <ion-icon name="radio" slot="start"></ion-icon>
+      Tap on NFC tags to scan
     </ion-button>
   </div>
 
   <div *ngIf="isIos" class="flex-center">
     <ion-button type="button" expand="block" color="tertiary" (click)="navigateArtwork(1)">
       <ion-icon name="logo-apple" slot="start"></ion-icon>
-      First One
+      Click here and Tap on NFC tags to scan
     </ion-button>
   </div>
 

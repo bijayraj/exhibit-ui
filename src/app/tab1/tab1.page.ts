@@ -35,7 +35,11 @@ export class Tab1Page implements OnInit {
       // Once the reader mode is enabled, any tags that are scanned are sent to the subscriber
       let flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
       this.readerMode$ = this.nfc.readerMode(flags).subscribe(
-        tag => console.log(JSON.stringify(tag)),
+        tag => {
+          console.log(JSON.stringify(tag));
+          this.router.navigateByUrl('/tabs/artwork/1');
+        },
+
         err => console.log('Error reading tag', err)
       );
     } else {

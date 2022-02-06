@@ -14,7 +14,8 @@ import { SwiperComponent } from 'swiper/angular';
 import { SwiperOptions } from 'swiper';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
-
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { VoiceRecorder, RecordingData } from 'capacitor-voice-recorder'
 
 @Component({
   selector: 'app-add-art',
@@ -30,6 +31,9 @@ export class AddArtPage implements OnInit {
 
   exhibits: Exhibit[];
   exhibit: Exhibit;
+
+  recording = false;
+  storedAudioFileNames = [];
 
   swiperConfig: SwiperOptions = {
     allowTouchMove: false
@@ -65,6 +69,8 @@ export class AddArtPage implements OnInit {
       moreInfo: [''],
       ExhibitId: ['']
     });
+    VoiceRecorder.requestAudioRecordingPermission();
+
   }
 
   async createArt() {
@@ -88,7 +94,8 @@ export class AddArtPage implements OnInit {
         next: async (response) => {
           await loading.dismiss();
           this.artWork = response;
-          this.slides.swiperRef.slideNext();
+          // this.slides.swiperRef.slideNext();
+          await this.nextToAssets();
         },
 
         error: async error => {
@@ -120,6 +127,12 @@ export class AddArtPage implements OnInit {
     this.slides.swiperRef.slidePrev();
   }
 
+  async nextToAssets() {
+    await this.makeDir();
+    this.loadFiles();
+    this.slides.swiperRef.slideNext();
+  }
+
   async takePicture() {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -137,5 +150,95 @@ export class AddArtPage implements OnInit {
     // this.imageElement.src = imageUrl;
     this.imageSource = imageUrl;
   }
+
+
+
+
+  async makeDir() {
+    let id = 0;
+    if (this.artWork) {
+      id = this.artWork.id;
+    }
+    try {
+
+      await Filesystem.mkdir({
+        path: `${id}`,
+        directory: Directory.Data
+      });
+    } catch {
+
+    }
+
+  }
+
+  async loadFiles() {
+    let id = 0;
+    if (this.artWork) {
+      id = this.artWork.id;
+    }
+    Filesystem.readdir({
+      path: `${id}`,
+      directory: Directory.Data
+    }).then(result => {
+      console.log(result);
+      this.storedAudioFileNames = result.files;
+    });
+  }
+
+  startRecording() {
+    if (this.recording) {
+      return;
+    }
+
+    this.recording = true;
+    VoiceRecorder.startRecording();
+  }
+
+  stopRecording() {
+    if (!this.recording) {
+      return;
+    }
+
+    let id = 0;
+    if (this.artWork) {
+      id = this.artWork.id;
+    }
+
+    VoiceRecorder.stopRecording().then(async (result: RecordingData) => {
+      if (result.value && result.value.recordDataBase64) {
+        const recordData = result.value.recordDataBase64;
+        console.log('Recording Result', recordData);
+
+        const fileName = new Date().getTime() + '.wav';
+        await Filesystem.writeFile({
+          path: `${id}/${fileName}`,
+          directory: Directory.Data,
+          data: recordData
+        });
+        this.loadFiles();
+      }
+    });
+    this.recording = false;
+  }
+
+  async playFile(fileName) {
+    let id = 0;
+    if (this.artWork) {
+      id = this.artWork.id;
+    }
+
+    const audioFile = await Filesystem.readFile({
+      path: `${id}/${fileName}`,
+      directory: Directory.Data
+    });
+    console.log('Audio file loaded', audioFile);
+    const base64Sound = audioFile.data;
+
+    const audioRef = new Audio(`data:audio/aac;base64,${base64Sound}`)
+    audioRef.oncanplaythrough = () => audioRef.play();
+    audioRef.load();
+  }
+
+
 
 }

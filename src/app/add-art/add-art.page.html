@@ -1,16 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Art</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Artwork</ion-title>
   </ion-toolbar>
+
+
 </ion-header>
 
-<ion-content>
-
-
-
-
+<ion-content [fullscreen]="true">
   <swiper #mainSwiper [config]="swiperConfig">
-
     <!-- Slide 1 -->
     <ng-template swiperSlide>
 
@@ -86,7 +86,7 @@
 
         </form>
         <ion-button type="submit" fill="outline" expand="block" (click)="prevSlide()">Back</ion-button>
-        <ion-button expand="block" fill="outline" (click)="nextSlide()">Next</ion-button>
+        <ion-button expand="block" fill="outline" (click)="nextToAssets()">Next</ion-button>
 
 
 
@@ -96,16 +96,46 @@
 
     <!-- Slide 3 -->
     <ng-template swiperSlide>
-
       <div class="slide-contents">
+        <h3>Add Assets</h3>
+
         <ion-img height="400" width="400" #imageElement [src]="imageSource"></ion-img>
-        <ion-button expand="block" fill="outline" (click)="takePicture()">Click Picture</ion-button>
+        <ion-button expand="block" fill="outline" (click)="takePicture()">
+          <ion-icon name="camera"></ion-icon>
+          Click Picture
+        </ion-button>
+
+
+        <ion-button expand="block" (click)="startRecording()" [enabled]="!recording">
+          <ion-icon name="recording"></ion-icon>
+          Start Recording
+        </ion-button>
+        <ion-button expand="block" color="danger" (click)="stopRecording()" [enabled]="recording">
+          <ion-icon name="stop-circle"></ion-icon>
+          Stop Recording
+        </ion-button>
+        <p *ngIf="recording">Recording</p>
+
+        <ion-list>
+          <ion-item button *ngFor="let f of storedAudioFileNames" (click)="playFile(f)">
+            <ion-label>{{f}}</ion-label>
+          </ion-item>
+        </ion-list>
+
+
         <ion-button expand="block" fill="outline" (click)="nextSlide()">Next</ion-button>
 
       </div>
+    </ng-template>
 
 
-
+    <ng-template swiperSlide>
+      <div class="flex-center">
+        <ion-button expand="block" fill="outline" (click)="takePicture()">
+          <ion-icon name="radio"></ion-icon>
+          Write Data to NFC Tag
+        </ion-button>
+      </div>
     </ng-template>
 
 

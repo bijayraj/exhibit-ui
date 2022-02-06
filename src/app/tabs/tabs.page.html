@@ -1,17 +1,26 @@
 <ion-menu side="end" menuId="first" contentId="tabs-main" swipeGesture="true" type="overlay">
   <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar>
       <ion-title>Menu</ion-title>
-
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list>
-      <ion-item button (click)="logout()">
-        <ion-label>Logout</ion-label>
-        <ion-icon name="person-circle"></ion-icon>
-      </ion-item>
 
+    <div class="header-content">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS884yE-aP3PQdStnZ7KZecX04EDdYa2YpRgQ&usqp=CAU"
+        alt="" />
+      <ion-label>
+        <h2>Bijay Raj Paudel</h2>
+        <p>SIU, Carbondale</p>
+      </ion-label>
+    </div>
+
+
+    <ion-list class="menu-items">
+      <ion-item button (click)="logout()">
+        <!-- <ion-label>Logout</ion-label> -->
+        <ion-icon name="log-out"></ion-icon> Logout
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

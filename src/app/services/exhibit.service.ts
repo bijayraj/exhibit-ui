@@ -20,8 +20,5 @@ export class ExhibitService {
       .pipe(map(exhibit => exhibit));
   }
 
-  create(userData) {
-    return this.http.post<any>(`${environment.apiUrl}/exhibit`, userData)
-      .pipe(map(exhibit => exhibit));
-  }
+
 }
