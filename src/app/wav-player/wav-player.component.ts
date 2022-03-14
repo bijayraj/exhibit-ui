@@ -23,7 +23,7 @@ export class WavPlayerComponent implements OnInit, OnDestroy {
   duration: any = -1;
   curr_playing_file: MediaObject;
   storageDirectory: any;
-  play_The_track: string = 'https://bigsoundbank.com/UPLOAD/wav-en/1068.wav'; //note this specific url format is used in android only
+  play_The_track: string = 'https://myweb.fsu.edu/sshamp/OverviewEng.mp3'; //note this specific url format is used in android only
   position: any = 0;
   get_position_interval: any;
   is_playing = false;

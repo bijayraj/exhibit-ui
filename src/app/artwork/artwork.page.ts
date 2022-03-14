@@ -16,6 +16,8 @@ export class ArtworkPage implements OnInit {
   artwork?: Artwork;
   imageList: any[] = [];
 
+  threedurl = "https://sketchfab.com/3d-models/huaca-lora-fbde22869d3146ca9af61816421a6d0d"
+
   constructor(private artworkService: ArtworkService,
     private route: ActivatedRoute,
     private location: Location,
@@ -33,9 +35,9 @@ export class ArtworkPage implements OnInit {
 
 
     this.imageList = [
-      { url: 'https://i.ibb.co/wBYDxLq/beach.jpg', title: 'Beach Houses' },
-      { url: 'https://i.ibb.co/gM5NNJX/butterfly.jpg', title: 'Butterfly' },
-      { url: 'https://i.ibb.co/10fFGkZ/car-race.jpg', title: 'Car Racing' },
+      { url: 'https://myweb.fsu.edu/sshamp/Overview.jpg', title: 'Beach Houses' },
+      { url: 'https://myweb.fsu.edu/sshamp/CouncilHouse.jpg', title: 'Butterfly' },
+      { url: 'https://raw.githubusercontent.com/siuctexr/siuctexr.github.io/master/peru/assets/Formal%20Gold%20Headdress_PAS-Y.png', title: 'Gold mask' },
       { url: 'https://i.ibb.co/ygqHsHV/coffee-milk.jpg', title: 'Coffee with Milk' },
       { url: 'https://i.ibb.co/7XqwsLw/fox.jpg', title: 'Fox' },
       { url: 'https://i.ibb.co/L1m1NxP/girl.jpg', title: 'Mountain Girl' },
