@@ -22,14 +22,49 @@ export class Tab1Page implements OnInit {
   async ngOnInit() {
 
     if (this.platform.is('ios')) {
+      console.log('IN IOS');
       // Read NFC Tag - iOS
       // On iOS, a NFC reader session takes control from your app while scanning tags then returns a tag
       try {
-        let tag = await this.nfc.scanNdef();
+
+        let tag = await this.nfc.scanNdef({ keepSessionOpen: true });
         console.log(JSON.stringify(tag));
+
+
+        let mystring = JSON.stringify(tag);
+        console.log(mystring);
+        if (tag) {
+          let id = tag.id;
+          let payloadBytes = tag.ndefMessage[0].payload;
+          const jsonBytesToString = String.fromCharCode(...payloadBytes);
+          const myId = jsonBytesToString.substring(3);
+
+          payloadBytes = tag.ndefMessage[1].payload;
+          const jsonBytesToString2 = String.fromCharCode(...payloadBytes);
+          const myDesc = jsonBytesToString2.substring(3);
+
+          console.log(myId);
+          console.log(myDesc);
+
+          // console.log(jsonBytesToString);
+          // let purifiedStr = jsonBytesToString.substring(jsonBytesToString.indexOf("{"));
+          // const mydata = JSON.parse(purifiedStr);
+          // console.log("MY DATA IS\n");
+          // console.log(purifiedStr);
+          // console.log(mydata);
+          // let myId = 1 //mydata.id;
+          // let myDesc = "Desc 1" //mydata.desc;
+
+          this.router.navigateByUrl(`/tabs/artwork/${myId}?totalstr=${jsonBytesToString}&desc=Item_${myId}`);
+        }
+
+
       } catch (err) {
         console.log('Error reading tag', err);
       }
+
+
+
     } else if (this.platform.is('android')) {
       // Read NFC Tag - Android
       // Once the reader mode is enabled, any tags that are scanned are sent to the subscriber
