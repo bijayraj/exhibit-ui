@@ -13,32 +13,30 @@
   <ion-card>
     <ion-card-header>
       <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-      <!-- <ion-card-title>{{artwork?.title}}</ion-card-title> -->
-      <ion-card-title>Peru Artwork</ion-card-title>
-
+      <ion-card-title>{{artwork?.title}}</ion-card-title>
+      <ion-card-title>{{descTemp}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       {{artwork?.description}}
-      <!-- <p><a target="_blank" rel="noopener noreferrer" [href]="artwork?.moreInfo | safeHtml">More Info..</a>
-      </p> -->
-
-      <p><a target="_blank" rel="noopener noreferrer" [href]="threedurl | safeHtml">3D Model</a>
+      <p><a target="_blank" rel="noopener noreferrer" [href]="artwork?.moreInfo | safeHtml">More Info..</a>
       </p>
 
+      <!-- <p><a target="_blank" rel="noopener noreferrer" [href]="threedurl | safeHtml">3D Model</a>
+      </p> -->
     </ion-card-content>
 
 
   </ion-card>
 
   <div *ngIf="imageList" style="text-align: center; max-height: 300px;">
-    <img [src]="imageList[2].url | safeHtml" (click)="showPhoto(imageList[2].url, 'some_title')" />
+    <img [src]="imageList[idTemp].url | safeHtml" (click)="showPhoto(imageList[idTemp].url, 'some_title')" />
 
   </div>
-
+  <!-- 
   <iframe width="300" height="200" src="https://www.youtube.com/embed/KeGxFx36mmU" title="YouTube video player"
     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen></iframe>
+    allowfullscreen></iframe> -->
   <!-- <app-wavplayer></app-wavplayer> -->
 
 

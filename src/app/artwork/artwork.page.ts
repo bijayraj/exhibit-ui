@@ -17,6 +17,8 @@ export class ArtworkPage implements OnInit {
   imageList: any[] = [];
 
   threedurl = "https://sketchfab.com/3d-models/huaca-lora-fbde22869d3146ca9af61816421a6d0d"
+  idTemp = 1;
+  descTemp = "Item 1";
 
   constructor(private artworkService: ArtworkService,
     private route: ActivatedRoute,
@@ -27,11 +29,19 @@ export class ArtworkPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params.id;
+      this.idTemp = id;
       this.artworkService.get(id).subscribe(data => {
         this.artwork = data;
         console.log(data);
       });
     });
+
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // { orderby: "price" }
+        this.descTemp = params.desc;
+      }
+      );
 
 
     this.imageList = [
@@ -54,7 +64,7 @@ export class ArtworkPage implements OnInit {
 
   showPhoto(url: string, title: string) {
 
-    this.photoViewer.show('https://i.ibb.co/wBYDxLq/beach.jpg');
+    this.photoViewer.show(url);
 
     // this.router.navigate(
     //   ['/photoviewer'],

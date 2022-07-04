@@ -36,8 +36,33 @@ export class Tab1Page implements OnInit {
       let flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
       this.readerMode$ = this.nfc.readerMode(flags).subscribe(
         tag => {
-          console.log(JSON.stringify(tag));
-          this.router.navigateByUrl('/tabs/artwork/1');
+          let mystring = JSON.stringify(tag);
+          console.log(mystring);
+          if (tag) {
+            let id = tag.id;
+            let payloadBytes = tag.ndefMessage[0].payload;
+            const jsonBytesToString = String.fromCharCode(...payloadBytes);
+            const myId = jsonBytesToString.substring(3);
+
+            payloadBytes = tag.ndefMessage[1].payload;
+            const jsonBytesToString2 = String.fromCharCode(...payloadBytes);
+            const myDesc = jsonBytesToString2.substring(3);
+
+            console.log(myId);
+            console.log(myDesc);
+
+            // console.log(jsonBytesToString);
+            // let purifiedStr = jsonBytesToString.substring(jsonBytesToString.indexOf("{"));
+            // const mydata = JSON.parse(purifiedStr);
+            // console.log("MY DATA IS\n");
+            // console.log(purifiedStr);
+            // console.log(mydata);
+            // let myId = 1 //mydata.id;
+            // let myDesc = "Desc 1" //mydata.desc;
+
+            this.router.navigateByUrl(`/tabs/artwork/${myId}?totalstr=${jsonBytesToString}&desc=Item_${myId}`);
+          }
+
         },
 
         err => console.log('Error reading tag', err)
