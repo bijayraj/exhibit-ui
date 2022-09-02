@@ -14,11 +14,5 @@ export class TabsPage {
 
   }
 
-  async logout() {
-    await this.authService.logout();
-    console.log('logout');
-    this.menuCtrl.close();
-    this.router.navigateByUrl('/login', { replaceUrl: true });
-  }
 
 }
