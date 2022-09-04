@@ -28,4 +28,9 @@ export class ArtworkService {
   }
 
 
+  getAssets(id: number) {
+    return this.http.get<any>(`${environment.apiUrl}/artwork-asset/artwork/${id}`);
+  }
+
+
 }

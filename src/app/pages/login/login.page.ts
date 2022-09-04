@@ -70,6 +70,10 @@ export class LoginPage implements OnInit {
     this.router.navigateByUrl('/signup', { replaceUrl: true });
   }
 
+  continueAsUser() {
+    this.router.navigateByUrl('/tabs/tab1', { replaceUrl: true })
+  }
+
 
 
 }

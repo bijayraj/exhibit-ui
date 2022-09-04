@@ -7,7 +7,7 @@ import { IntroGuard } from './guards/intro.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/tabs/tab1',
     pathMatch: 'full'
   },
   {
@@ -34,15 +34,15 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignupPageModule)
   },
   {
     path: 'add-art',
-    loadChildren: () => import('./add-art/add-art.module').then( m => m.AddArtPageModule)
+    loadChildren: () => import('./add-art/add-art.module').then(m => m.AddArtPageModule)
   },
   {
     path: 'artist-art',
-    loadChildren: () => import('./artist-art/artist-art.module').then( m => m.ArtistArtPageModule)
+    loadChildren: () => import('./artist-art/artist-art.module').then(m => m.ArtistArtPageModule)
   }
 ];
 @NgModule({

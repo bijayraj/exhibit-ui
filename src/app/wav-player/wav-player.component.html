@@ -2,6 +2,48 @@
   <ion-thumbnail [ngStyle]="{'background':'url('+ image +')'}"></ion-thumbnail>
 </div> -->
 
+<p>{{title}}</p>
+<div class="audioplayer">
+  <div class="audioplayer-playpause" title="Play">
+
+
+    <ion-button fill="clear" size="small" color="light" (click)="play()" *ngIf="!is_playing" justify-content-center
+      [disabled]="!is_ready">
+      <ion-icon size="small" name="play" class="lightColor"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="pause()" color="light" *ngIf="is_playing" justify-content-center [disabled]="!is_ready"
+      align-items-center>
+      <ion-icon size="small" name="pause" class="lightColor"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="audioplayer-time audioplayer-time-current">{{ display_position }}</div>
+  <div class="audioplayer-bar">
+    <!-- <div class="audioplayer-bar-loaded"></div>
+    <div class="audioplayer-bar-played"></div> -->
+
+    <ion-range style="margin-top:-15px" min="0" max="{{duration}}" [(ngModel)]="position" color="light">
+    </ion-range>
+  </div>
+
+  <div class="audioplayer-time audioplayer-time-duration">{{ display_duration }}</div>
+
+
+  <!-- <div class="audioplayer-volume">
+    <div class="audioplayer-volume-button" title="Volume"><a href="#">Volume</a></div>
+    <div class="audioplayer-volume-adjust">
+      <div>
+        <div></div>
+      </div>
+    </div>
+  </div> -->
+
+
+</div>
+
+
+
+<!-- 
 <div style="background-color: black;">
 
   <ion-range min="0" max="{{duration}}" [(ngModel)]="position" color="light">
@@ -44,4 +86,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</div>
+</div> -->

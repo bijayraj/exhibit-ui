@@ -19,20 +19,33 @@
 
     <ion-card-content>
       {{artwork?.description}}
-      <p><a target="_blank" rel="noopener noreferrer" [href]="artwork?.moreInfo | safeHtml">More Info..</a>
+
+
+      <div *ngFor="let asset of artworkAssets">
+        <!-- <img *ngIf="asset.assetType==0" [src]="asset.address" [alt]="asset.description" /> -->
+        <div class="img-container">
+
+          <img class="item-img" *ngIf="asset.assetType==0"
+            src="https://lp-cms-production.imgix.net/news/2019/02/spain-village.jpg?auto=format&q=40&ar=16%3A9&fit=crop&w=1946"
+            [alt]="asset.description" />
+        </div>
+
+        <app-wavplayer *ngIf="asset.assetType == 1" [play_The_track]="asset.address" [title]="asset.title">
+        </app-wavplayer>
+      </div>
+
+      <p><a *ngIf="artwork?.moreInfo" target="_blank" rel="noopener noreferrer"
+          [href]="artwork?.moreInfo | safeHtml">More Info..</a>
       </p>
 
-      <!-- <p><a target="_blank" rel="noopener noreferrer" [href]="threedurl | safeHtml">3D Model</a>
-      </p> -->
     </ion-card-content>
-
-
   </ion-card>
 
-  <div *ngIf="imageList" style="text-align: center; max-height: 300px;">
+  <!-- <div *ngIf="imageList" style="text-align: center; max-height: 300px;">
     <img [src]="imageList[idTemp].url | safeHtml" (click)="showPhoto(imageList[idTemp].url, 'some_title')" />
+  </div> -->
 
-  </div>
+
   <!-- 
   <iframe width="300" height="200" src="https://www.youtube.com/embed/KeGxFx36mmU" title="YouTube video player"
     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

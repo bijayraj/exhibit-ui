@@ -6,7 +6,7 @@
  * This source code is licensed as per the terms found in the
  * LICENSE.md file in the root directory of this source tree.
  */
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MediaObject, Media } from '@ionic-native/media/ngx';
 import { Platform, LoadingController } from '@ionic/angular';
@@ -16,14 +16,18 @@ import { Platform, LoadingController } from '@ionic/angular';
   styleUrls: ['./wav-player.component.scss'],
 })
 export class WavPlayerComponent implements OnInit, OnDestroy {
-  title: any;
+  @Input() title: any;
   artist: any;
   image: string = 'assets/album_art.jpg';
   filename: any = 'Baba O`reily';
   duration: any = -1;
   curr_playing_file: MediaObject;
   storageDirectory: any;
-  play_The_track: string = 'https://myweb.fsu.edu/sshamp/OverviewEng.mp3'; //note this specific url format is used in android only
+
+
+  @Input() play_The_track: string = 'https://myweb.fsu.edu/sshamp/OverviewEng.mp3'; //note this specific url format is used in android only
+
+
   position: any = 0;
   get_position_interval: any;
   is_playing = false;

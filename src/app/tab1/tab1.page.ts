@@ -110,7 +110,7 @@ export class Tab1Page implements OnInit {
 
   navigateArtwork(id: number) {
     // this.router.navigate(['tabs', 'artwork', 1]);
-    this.navController.navigateForward('tabs/artwork/1');
+    this.navController.navigateForward('tabs/artwork/2');
   }
 
 }
