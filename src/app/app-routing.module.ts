@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'artist-art',
     loadChildren: () => import('./artist-art/artist-art.module').then(m => m.ArtistArtPageModule)
+  },
+  {
+    path: 'artist-art-edit',
+    loadChildren: () => import('./artist-art-edit/artist-art-edit.module').then( m => m.ArtistArtEditPageModule)
   }
 ];
 @NgModule({

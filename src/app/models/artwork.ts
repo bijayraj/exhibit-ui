@@ -6,4 +6,6 @@ export class Artwork {
     moreInfo: string;
     approved: boolean;
     approvedDate?: string;
+    ExhibitId?: number;
+    UserId?: number;
 }

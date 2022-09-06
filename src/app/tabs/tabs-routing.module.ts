@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../artwork/artwork.module').then(m => m.ArtworkPageModule)
       },
       {
+        path: 'artist-art-edit/:id',
+        loadChildren: () => import('../artist-art-edit/artist-art-edit.module').then(m => m.ArtistArtEditPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

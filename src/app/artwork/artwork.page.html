@@ -14,7 +14,7 @@
     <ion-card-header>
       <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
       <ion-card-title>{{artwork?.title}}</ion-card-title>
-      <ion-card-title>{{descTemp}}</ion-card-title>
+      <!-- <ion-card-title>{{descTemp}}</ion-card-title> -->
     </ion-card-header>
 
     <ion-card-content>
@@ -22,12 +22,12 @@
 
 
       <div *ngFor="let asset of artworkAssets">
-        <!-- <img *ngIf="asset.assetType==0" [src]="asset.address" [alt]="asset.description" /> -->
         <div class="img-container">
+          <img *ngIf="asset.assetType==0" [src]="asset.address" [alt]="asset.description" />
 
-          <img class="item-img" *ngIf="asset.assetType==0"
+          <!-- <img class="item-img" *ngIf="asset.assetType==0"
             src="https://lp-cms-production.imgix.net/news/2019/02/spain-village.jpg?auto=format&q=40&ar=16%3A9&fit=crop&w=1946"
-            [alt]="asset.description" />
+            [alt]="asset.description" /> -->
         </div>
 
         <app-wavplayer *ngIf="asset.assetType == 1" [play_The_track]="asset.address" [title]="asset.title">

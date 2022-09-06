@@ -7,13 +7,13 @@
   <div class="audioplayer-playpause" title="Play">
 
 
-    <ion-button fill="clear" size="small" color="light" (click)="play()" *ngIf="!is_playing" justify-content-center
-      [disabled]="!is_ready">
+    <ion-button style="padding:0px;" fill="clear" size="small" (click)="play()" *ngIf="!is_playing"
+      justify-content-center [disabled]="!is_ready">
       <ion-icon size="small" name="play" class="lightColor"></ion-icon>
     </ion-button>
 
-    <ion-button (click)="pause()" color="light" *ngIf="is_playing" justify-content-center [disabled]="!is_ready"
-      align-items-center>
+    <ion-button style="padding:0px;" (click)="pause()" size="small" *ngIf="is_playing" justify-content-center
+      [disabled]="!is_ready">
       <ion-icon size="small" name="pause" class="lightColor"></ion-icon>
     </ion-button>
   </div>
@@ -22,7 +22,7 @@
     <!-- <div class="audioplayer-bar-loaded"></div>
     <div class="audioplayer-bar-played"></div> -->
 
-    <ion-range style="margin-top:-15px" min="0" max="{{duration}}" [(ngModel)]="position" color="light">
+    <ion-range style="margin-top:-15px" min="0" max="{{duration}}" [(ngModel)]="position">
     </ion-range>
   </div>
 
