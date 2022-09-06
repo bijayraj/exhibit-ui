@@ -20,7 +20,16 @@ export class Tab1Page implements OnInit {
 
 
   async ngOnInit() {
+    await this.readNFCTag()
+  }
 
+  navigateArtwork(id: number) {
+    this.router.navigate(['tabs', 'artwork', id]);
+    // this.navController.navigateForward('tabs/artwork/2');
+  }
+
+
+  async readNFCTag() {
     if (this.platform.is('ios')) {
       console.log('IN IOS');
       // Read NFC Tag - iOS
@@ -29,10 +38,9 @@ export class Tab1Page implements OnInit {
 
         let tag = await this.nfc.scanNdef({ keepSessionOpen: true });
         console.log(JSON.stringify(tag));
-
-
         let mystring = JSON.stringify(tag);
         console.log(mystring);
+
         if (tag) {
           let id = tag.id;
           let payloadBytes = tag.ndefMessage[0].payload;
@@ -105,12 +113,6 @@ export class Tab1Page implements OnInit {
     } else {
       console.log('Not supported platform for NFC');
     }
-
-  }
-
-  navigateArtwork(id: number) {
-    // this.router.navigate(['tabs', 'artwork', 1]);
-    this.navController.navigateForward('tabs/artwork/2');
   }
 
 }
