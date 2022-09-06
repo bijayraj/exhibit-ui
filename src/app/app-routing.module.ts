@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
-    canLoad: []
+    canLoad: [IntroGuard]
   },
   {
     path: 'artwork',
@@ -46,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'artist-art-edit',
-    loadChildren: () => import('./artist-art-edit/artist-art-edit.module').then( m => m.ArtistArtEditPageModule)
+    loadChildren: () => import('./artist-art-edit/artist-art-edit.module').then(m => m.ArtistArtEditPageModule)
   }
 ];
 @NgModule({
