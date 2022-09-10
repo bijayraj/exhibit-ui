@@ -36,7 +36,7 @@ export class Tab1Page implements OnInit {
       // On iOS, a NFC reader session takes control from your app while scanning tags then returns a tag
       try {
 
-        let tag = await this.nfc.scanNdef({ keepSessionOpen: true });
+        let tag = await this.nfc.scanNdef({ keepSessionOpen: false });
         console.log(JSON.stringify(tag));
         let mystring = JSON.stringify(tag);
         console.log(mystring);
@@ -62,6 +62,7 @@ export class Tab1Page implements OnInit {
           // console.log(mydata);
           // let myId = 1 //mydata.id;
           // let myDesc = "Desc 1" //mydata.desc;
+
 
           this.router.navigateByUrl(`/tabs/artwork/${myId}?totalstr=${jsonBytesToString}&desc=Item_${myId}`);
         }

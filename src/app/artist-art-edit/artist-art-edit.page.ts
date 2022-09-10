@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { Artwork } from '../models/artwork';
 import { ArtworkAsset } from '../models/artworkAsset';
 import { Exhibit } from '../models/exhibit';
@@ -25,6 +25,7 @@ export class ArtistArtEditPage implements OnInit {
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
     private alertController: AlertController,
+    private platform:Platform,
     private router: Router,
     private route: ActivatedRoute,
     private loadingController: LoadingController,
@@ -76,15 +77,47 @@ export class ArtistArtEditPage implements OnInit {
 
   }
 
+  async writeTagIos(){
+    try {
+      let tag = await this.nfc.scanNdef({ keepSessionOpen: true});
+      // you can read tag data here
+      console.log(tag);
+      let message = [
+        this.ndef.textRecord(this.artWork.id.toString()),
+        this.ndef.textRecord(this.artWork.title)
+      ]
+      
+      try{
+        let writeResult = await this.nfc.write(message);
+        console.log('Write succesful')
+        // const alert = await this.alertController.create({
+        //   header: 'Success',
+        //   message: 'Tag created',
+        //   buttons: ['OK'],
+        // });
+        // await alert.present();
 
-  writeTag() {
-    this.nfc.close();
-    this.alertController.create({
-      header: 'Bring Tag Closer',
-      message: 'success',
-      buttons: ['OK'],
-    });
 
+      } catch(write_error){
+        console.log('Could not write tag');
+        console.log(write_error);
+
+        // const alert = await this.alertController.create({
+        //   header: 'Failed',
+        //   message: 'Tag could not be written. Try again',
+        //   buttons: ['OK'],
+        // });
+        // await alert.present();
+
+      }
+
+
+  } catch (err) {
+      console.log(err);
+  }
+  }
+
+  async writeTagAndroid(){
     this.nfc.addNdefListener(() => {
       console.log('successfully attached ndef listener');
     }, (err) => {
@@ -119,6 +152,27 @@ export class ArtistArtEditPage implements OnInit {
 
       // this.nfc.share([message]).then(onSuccess).catch(onError);
     });
+  }
+
+
+  async writeTag() {
+    this.nfc.close();
+    this.alertController.create({
+      header: 'Bring Tag Closer',
+      message: 'success',
+      buttons: ['OK'],
+    });
+
+    if (this.platform.is('ios')) {
+      await this.writeTagIos();
+    } else{
+      await this.writeTagAndroid();
+    }
+    
+
+
+
+    
   }
 
 

@@ -1,6 +1,6 @@
 {
-	"appId": "edu.siu.exhibit",
-	"appName": "art-exhibit",
+	"appId": "com.bijayrajpaudel.exhibit",
+	"appName": "Art Exhibit",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }

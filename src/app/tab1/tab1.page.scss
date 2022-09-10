@@ -3,5 +3,43 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    flex-direction: column;
 
 }
+
+.circle-with-text {
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    text-align: center;
+    display: flex;
+  }
+
+  .main-img{
+    width:60%;
+    margin:auto;
+  }
+
+  .heading{
+    text-align: center;
+    width: 100%;
+    font-size:44px;
+  }
+
+  .sub-heading{
+    text-align: center;
+    width: 100%;
+    font-weight: 400;
+  }
+
+  .top-container{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+
+  .scan-button{
+    margin-bottom:30px;
+  }

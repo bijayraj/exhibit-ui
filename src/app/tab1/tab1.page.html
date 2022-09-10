@@ -9,21 +9,40 @@
 
 <ion-content [fullscreen]="true">
 
+  <div class="top-container">
+
+    <h1 class="heading">Tap Tour</h1>
+
+    <h5 class="sub-heading">
+  
+      Tap your phone to this tag to get enlighted!
+    </h5>
 
 
-  <div *ngIf="!isIos" class="flex-center">
-    <ion-button type="button" expand="block" color="tertiary" (click)="readNFCTag()">
-      <ion-icon name="radio" slot="start"></ion-icon>
-      Tap on NFC tags to scan
-    </ion-button>
+    <div *ngIf="!isIos" class="flex-center">
+      <img src="./assets/images/nfc_logo.png" class="main-img"/>
+  
+
+      <ion-button class="scan-button" fill="outline" type="button" expand="block" color="tertiary" (click)="readNFCTag()">
+        <ion-icon name="radio" slot="start"></ion-icon>
+        Click here to Start Scanning
+      </ion-button>
+
+      <br />
+    </div>
+  
+    <div *ngIf="isIos" class="flex-center">
+      <img src="./assets/images/nfc_logo.png" class="main-img"/>
+
+      <ion-button class="scan-button" fill="outline"  type="button" expand="block" color="tertiary" (click)="readNFCTag()">
+        <ion-icon name="radio" slot="start"></ion-icon>
+        Click here to Start Scanning
+      </ion-button>
+    </div>
+
   </div>
 
-  <div *ngIf="isIos" class="flex-center">
-    <ion-button type="button" expand="block" color="tertiary" (click)="readNFCTag()">
-      <ion-icon name="logo-apple" slot="start"></ion-icon>
-      Click here and Tap on NFC tags to scan
-    </ion-button>
-  </div>
+  
 
 
 </ion-content>

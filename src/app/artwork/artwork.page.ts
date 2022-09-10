@@ -39,8 +39,7 @@ export class ArtworkPage implements OnInit {
       this.artworkService.getAssets(id).subscribe(data => {
         this.artworkAssets = data;
         console.log('Loaded assets');
-        console.log(data)
-      })
+      });
 
 
     });

@@ -10,8 +10,7 @@
       <ion-item>
         <ion-label position="floating">Exhibit</ion-label>
         <!-- <ion-input readonly disabled value="{{exhibit?.name}}"></ion-input> -->
-
-      </ion-item>
+        </ion-item>
 
       <ion-item>
         <ion-label position="floating">Title</ion-label>
@@ -38,11 +37,11 @@
       </ion-item>
     </div>
 
-    <ion-button type="submit" expand="block" [disabled]="!artForm.valid">Create</ion-button>
+    <!-- <ion-button type="submit" expand="block" [disabled]="!artForm.valid">Create</ion-button> -->
 
   </form>
 
-  <ion-button expand="block" (click)="writeTag()">Create Tag</ion-button>
+  <ion-button expand="block" (click)="writeTag()">Write to NFC Tag</ion-button>
 
 
 

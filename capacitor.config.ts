@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'edu.siu.exhibit',
-  appName: 'art-exhibit',
+  appId: 'com.bijayrajpaudel.exhibit',
+  appName: 'Art Exhibit',
   webDir: 'www',
   bundledWebRuntime: false
 };
