@@ -19,10 +19,11 @@
     </h5>
 
 
-    <div *ngIf="!isIos" class="flex-center">
-      <img src="./assets/images/nfc_logo.png" class="main-img"/>
-  
+    <div class="flex-center">
+      <div class="image-container">
+        <img src="./assets/images/nfc-icon.svg" class="main-img"/>
 
+      </div>
       <ion-button class="scan-button" fill="outline" type="button" expand="block" color="tertiary" (click)="readNFCTag()">
         <ion-icon name="radio" slot="start"></ion-icon>
         Click here to Start Scanning
@@ -30,17 +31,8 @@
 
       <br />
     </div>
-  
-    <div *ngIf="isIos" class="flex-center">
-      <img src="./assets/images/nfc_logo.png" class="main-img"/>
 
-      <ion-button class="scan-button" fill="outline"  type="button" expand="block" color="tertiary" (click)="readNFCTag()">
-        <ion-icon name="radio" slot="start"></ion-icon>
-        Click here to Start Scanning
-      </ion-button>
     </div>
-
-  </div>
 
   
 

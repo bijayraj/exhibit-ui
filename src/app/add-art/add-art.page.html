@@ -11,6 +11,9 @@
 
 <ion-content [fullscreen]="true">
   <swiper #mainSwiper [config]="swiperConfig">
+
+
+
     <!-- Slide 1 -->
     <ng-template swiperSlide>
 
@@ -36,7 +39,6 @@
             <p>{{exhibit.description}}</p>
           </ion-card-content>
         </ion-card>
-
 
         <ion-button expand="block" fill="outline" (click)="nextSlide()" [disabled]="!exhibit">Next</ion-button>
 
@@ -84,17 +86,45 @@
 
           <ion-button type="submit" expand="block" [disabled]="!artForm.valid">Create</ion-button>
 
-        </form>
-        <ion-button type="submit" fill="outline" expand="block" (click)="prevSlide()">Back</ion-button>
-        <ion-button expand="block" fill="outline" (click)="nextToAssets()">Next</ion-button>
 
+
+        </form>
+        <!-- <ion-button type="submit" fill="outline" expand="block" (click)="prevSlide()">Back</ion-button>
+        <ion-button expand="block" fill="outline" (click)="nextToAssets()">Next</ion-button>
+ -->
 
 
       </div>
     </ng-template>
 
+    <ng-template swiperSlide>
+      <div class="slide-contents">
+        <h3>Add Assets</h3>
+        <ion-item>
+          <ion-label position="floating">Image URL</ion-label>
+          <ion-textarea [(ngModel)]="imageUrl"></ion-textarea>
+        </ion-item>
 
-    <!-- Slide 3 -->
+        <img  class="img-preview" [src]="imageUrl | safeHtml"/>
+        <span style="font-size: x-small">Preview</span>
+        
+        <ion-item>
+          <ion-label position="floating">Audio URL</ion-label>
+          <ion-textarea [(ngModel)]="audioUrl"></ion-textarea>
+        </ion-item>
+
+        <app-wavplayer *ngIf="audioUrl" [play_The_track]="audioUrl" [title]="'Audio'">
+        </app-wavplayer>
+
+
+        <ion-button expand="block" fill="solid" (click)="addAssets()">Save Assets</ion-button>
+
+
+      </div>
+    </ng-template>
+
+   
+<!-- 
     <ng-template swiperSlide>
       <div class="slide-contents">
         <h3>Add Assets</h3>
@@ -136,8 +166,23 @@
           Write Data to NFC Tag
         </ion-button>
       </div>
-    </ng-template>
+    </ng-template> -->
 
+
+    <ng-template swiperSlide>
+      <div class="flex-center">
+        <p> Use this to create NFC tags for: "{{artwork?.title}}".</p>
+        <br />
+        <ion-button expand="block" (click)="writeTag()">
+          <ion-icon name="radio"></ion-icon>
+          Write Data to NFC Tag
+        </ion-button>
+        <br />
+        <ion-button expand="block" click="finishAdd()">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>          Finish
+        </ion-button>
+      </div>
+    </ng-template>
 
   </swiper>
 </ion-content>

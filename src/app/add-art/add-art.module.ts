@@ -9,6 +9,9 @@ import { AddArtPageRoutingModule } from './add-art-routing.module';
 import { AddArtPage } from './add-art.page';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { SwiperModule } from 'swiper/angular';
+import { UploadImageComponent } from './upload-image/upload-image.component';
+import { SafeHtmlPipe } from '../safe-html';
+import { WavPlayerComponent } from '../wav-player/wav-player.component';
 
 @NgModule({
   imports: [
@@ -20,6 +23,6 @@ import { SwiperModule } from 'swiper/angular';
     IonicSelectableModule,
     SwiperModule
   ],
-  declarations: [AddArtPage]
+  declarations: [AddArtPage, UploadImageComponent, SafeHtmlPipe, WavPlayerComponent]
 })
 export class AddArtPageModule { }

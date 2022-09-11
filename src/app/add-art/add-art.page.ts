@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, IonicSwiper, IonSlides, LoadingController } from '@ionic/angular';
+import { AlertController, IonicSwiper, IonSlides, LoadingController, Platform } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { first } from 'rxjs/operators';
 import { Artwork } from '../models/artwork';
@@ -16,6 +16,9 @@ import { SwiperOptions } from 'swiper';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { VoiceRecorder, RecordingData } from 'capacitor-voice-recorder'
+import { AssetService } from '../services/asset.service';
+import { ArtworkAsset } from '../models/artworkAsset';
+import { Ndef, NFC } from '@awesome-cordova-plugins/nfc/ngx';
 
 @Component({
   selector: 'app-add-art',
@@ -35,6 +38,9 @@ export class AddArtPage implements OnInit {
   recording = false;
   storedAudioFileNames = [];
 
+  imageUrl = "";
+  audioUrl:string = "";
+
   swiperConfig: SwiperOptions = {
     allowTouchMove: false
   };
@@ -45,7 +51,10 @@ export class AddArtPage implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private loadingController: LoadingController,
-    private artService: ArtworkService) {
+    private artService: ArtworkService,
+    private assetService: AssetService,
+    private platform:Platform,
+    private nfc: NFC, private ndef: Ndef) {
 
 
 
@@ -57,7 +66,9 @@ export class AddArtPage implements OnInit {
 
   ngOnInit() {
 
-    Camera.requestPermissions();
+    // Camera.requestPermissions();
+    // VoiceRecorder.requestAudioRecordingPermission();
+
     this.exhibitService.getAll().subscribe(data => {
       this.exhibits = data;
       console.log(data);
@@ -69,7 +80,6 @@ export class AddArtPage implements OnInit {
       moreInfo: [''],
       ExhibitId: ['']
     });
-    VoiceRecorder.requestAudioRecordingPermission();
 
   }
 
@@ -87,6 +97,8 @@ export class AddArtPage implements OnInit {
     const userData = this.artForm.value;
     userData.ExhibitId = this.exhibit.id;
     userData.UserId = currentUser.id;
+    userData.approved = true;
+    userData.artType = 'General';
 
     this.artService.create(userData)
       .pipe(first())
@@ -102,7 +114,7 @@ export class AddArtPage implements OnInit {
           await loading.dismiss();
           console.log(error);
           const alert = await this.alertController.create({
-            header: 'User registration failed',
+            header: 'Failed',
             message: error.error.message,
             buttons: ['OK'],
           });
@@ -240,5 +252,173 @@ export class AddArtPage implements OnInit {
   }
 
 
+  async uploadImage(){
+    
+  }
+
+  async addAssets(){
+    const loading = await this.loadingController.create();
+    const currentUser = this.authService.userValue;
+
+
+    await loading.present();
+
+    const imageArtwork: ArtworkAsset = new ArtworkAsset();
+    imageArtwork.address = this.imageUrl;
+    imageArtwork.approved = true;
+    imageArtwork.assetType = 0;
+    imageArtwork.description = "Image ";
+    imageArtwork.title = "Image";
+    imageArtwork.visible = true;
+    imageArtwork.ArtworkId = this.artWork.id;
+
+    const audioArtwork: ArtworkAsset = new ArtworkAsset();
+    audioArtwork.address = this.audioUrl;
+    audioArtwork.approved = true;
+    audioArtwork.assetType = 1;
+    audioArtwork.description = "Audio ";
+    audioArtwork.title = "Audio";
+    audioArtwork.visible = true;
+    audioArtwork.ArtworkId = this.artWork.id;
+
+    this.assetService.create(imageArtwork)
+      .pipe(first())
+      .subscribe({
+        next: async (response) => {
+
+          this.assetService.create(audioArtwork).pipe(first())
+          .subscribe({
+            next: async (response)=>{
+              this.loadingController.dismiss();
+              const alert = await this.alertController.create({
+                header: 'Success',
+                message: 'Assets Added',
+                buttons: ['OK'],
+              });
+              await alert.present();
+              this.slides.swiperRef.slideNext();
+
+            },
+            error: async error =>{
+              await loading.dismiss();
+              console.log(error);
+            }
+          });
+
+
+
+        },
+
+        error: async error => {
+          await loading.dismiss();
+          console.log(error);
+          const alert = await this.alertController.create({
+            header: 'Failed',
+            message: error.error.message,
+            buttons: ['OK'],
+          });
+          await alert.present();
+        }
+      });
+  }
+
+
+  async writeTagIos(){
+    try {
+      let tag = await this.nfc.scanNdef({ keepSessionOpen: true});
+      // you can read tag data here
+      console.log(tag);
+      let message = [
+        this.ndef.textRecord(this.artWork.id.toString()),
+        this.ndef.textRecord(this.artWork.title)
+      ]
+      
+      try{
+        let writeResult = await this.nfc.write(message);
+        console.log('Write succesful')
+        // const alert = await this.alertController.create({
+        //   header: 'Success',
+        //   message: 'Tag created',
+        //   buttons: ['OK'],
+        // });
+        // await alert.present();
+
+
+      } catch(write_error){
+        console.log('Could not write tag');
+        console.log(write_error);
+
+        // const alert = await this.alertController.create({
+        //   header: 'Failed',
+        //   message: 'Tag could not be written. Try again',
+        //   buttons: ['OK'],
+        // });
+        // await alert.present();
+
+      }
+
+
+  } catch (err) {
+      console.log(err);
+  }
+  }
+
+  async writeTagAndroid(){
+    this.nfc.addNdefListener(() => {
+      console.log('successfully attached ndef listener');
+    }, (err) => {
+      console.log('error attaching ndef listener', err);
+    }).subscribe((event) => {
+      console.log('received ndef message. the tag contains: ', event.tag);
+      console.log('decoded tag id', this.nfc.bytesToHexString(event.tag.id));
+
+      let message = [
+        this.ndef.textRecord(this.artWork.id.toString()),
+        this.ndef.textRecord(this.artWork.title)
+      ]
+
+      this.nfc.write(
+        message).then(msg => {
+          console.log('Wrote the message ');
+          this.alertController.create({
+            header: 'User registration success',
+            message: 'success',
+            buttons: ['OK'],
+          });
+          this.nfc.close()
+        })
+        .catch(error => {
+          this.alertController.create({
+            header: 'User registration success',
+            message: error,
+            buttons: ['OK'],
+          });
+          console.log(error)
+        });
+
+      // this.nfc.share([message]).then(onSuccess).catch(onError);
+    });
+  }
+
+
+  async writeTag() {
+    this.nfc.close();
+    this.alertController.create({
+      header: 'Bring Tag Closer',
+      message: 'success',
+      buttons: ['OK'],
+    });
+
+    if (this.platform.is('ios')) {
+      await this.writeTagIos();
+    } else{
+      await this.writeTagAndroid();
+    }
+    
+  }
+
+  finishAdd(){
+    this.router.navigate(['tabs', 'tab1']);
+  }
 
 }

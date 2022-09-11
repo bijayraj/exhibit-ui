@@ -275,3 +275,29 @@
 		background: #007fd1;
 		z-index: 2;
 	}
+
+
+	// @media (prefers-color-scheme: dark) {
+	// 	ion-toolbar {
+	// 	  --background: black;
+	// 	  color: white;
+	// 	}
+	// 	.verticalScrollContainer {
+	// 	  background: black;
+	// 	}
+	//   }
+
+	.play-container{
+		text-align: center;
+
+	
+	}
+	  
+
+	.inner-pad{
+		padding:2px;
+	}
+
+	.duration{
+		font-size: smaller;
+	}

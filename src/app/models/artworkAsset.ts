@@ -1,6 +1,6 @@
 export class ArtworkAsset {
     id: number;
-    ArtworkId: string;
+    ArtworkId: number;
     description: string;
     title: string;
     assetType: number;
