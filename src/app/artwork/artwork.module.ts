@@ -12,6 +12,7 @@ import { PhotoviewerComponent } from '../photoviewer/photoviewer.component';
 import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
 
 import { WavPlayerComponent } from '../wav-player/wav-player.component';
+import { ModalpopupComponent } from './modalpopup/modalpopup.component';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { WavPlayerComponent } from '../wav-player/wav-player.component';
     ArtworkPageRoutingModule
 
   ],
-  declarations: [ArtworkPage, SafeHtmlPipe, WavPlayerComponent, PhotoviewerComponent],
+  declarations: [ArtworkPage, SafeHtmlPipe, WavPlayerComponent, PhotoviewerComponent, ModalpopupComponent],
   providers: [PhotoViewer]
 })
 export class ArtworkPageModule { }

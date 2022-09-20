@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 
 import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
 import { ArtworkAsset } from '../models/artworkAsset';
+import { ModalController } from '@ionic/angular';
+import { ModalpopupComponent } from './modalpopup/modalpopup.component';
 
 @Component({
   selector: 'app-artwork',
@@ -20,12 +22,14 @@ export class ArtworkPage implements OnInit {
   threedurl = "https://sketchfab.com/3d-models/huaca-lora-fbde22869d3146ca9af61816421a6d0d"
   idTemp = 1;
   descTemp = "Item 1";
-
+  userQuestion: string = '';
+  questionResponse: string = '';
   constructor(private artworkService: ArtworkService,
     private route: ActivatedRoute,
     private location: Location,
     private photoViewer: PhotoViewer,
-    private router: Router) { }
+    private router: Router,
+    public modalController: ModalController) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -66,6 +70,42 @@ export class ArtworkPage implements OnInit {
 
   }
 
+  async showDialog() {
+  }
+
+
+  modelData: any;
+  async openIonModal() {
+    const modal = await this.modalController.create({
+      component: ModalpopupComponent,
+      componentProps: {
+        'model_title': "Nomadic model's reveberation"
+      }
+    });
+    modal.onDidDismiss().then((modelData) => {
+      if (modelData !== null) {
+        this.modelData = modelData.data;
+        console.log('Modal Data : ' + modelData.data);
+      }
+    });
+    return await modal.present();
+  }
+
+  async closeModel() {
+    const close: string = "Modal Removed";
+    await this.modalController.dismiss(close);
+  }
+
+  someFunction() {
+    console.log('Clicked here');
+  }
+
+  async askQuestion() {
+    this.artworkService.askQuestion(this.artwork.id, this.userQuestion).subscribe(response => {
+      this.questionResponse = response.message;
+    })
+    console.log('Asking question');
+  }
 
 
 }

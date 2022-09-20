@@ -32,5 +32,10 @@ export class ArtworkService {
     return this.http.get<any>(`${environment.apiUrl}/artwork-asset/artwork/${id}`);
   }
 
+  askQuestion(id: number, question: string) {
+    return this.http.post<any>(`${environment.apiUrl}/artwork/question/${id}`, { question: question })
+      .pipe(map(message => message));
+  }
+
 
 }
